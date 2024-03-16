@@ -257,6 +257,18 @@ postgres`). Generally, the problem is that by default the postgres server is
 >
 > - [Ubuntu](https://help.ubuntu.com/community/PostgreSQL)
 > - [Fedora](https://fedoraproject.org/wiki/PostgreSQL)
+
+```
+Tips for errors running into errors like:
+ - "FATAL:  password authentication failed for user "postgres""
+ - "fe_sendauth: no password supplied"
+
+======
+1. Need to modify the PostgreSQL Authentication Configuration File, which is "pg_hba.conf"
+2. Make sure the "METHOD" field is set to "trust".
+3. Reload "pg_hba.conf", such as: type command "select pg_reload_conf()" within db as a superuser.
+
+```
 >
 > For other platforms, try searching for the error message and following
 > suggestions from Stack Overflow. Open an issue on this repo if you get stuck,

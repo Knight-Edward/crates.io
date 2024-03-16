@@ -82,6 +82,8 @@ pub enum Env {
 pub fn build_handler(app: Arc<App>) -> axum::Router {
     let state = AppState(app);
 
+    // the core is to register route handlers for the server.
+    // "/api/v1/crates"  -> krate::search::search
     let axum_router = build_axum_router(state.clone());
     middleware::apply_axum_middleware(state, axum_router)
 }

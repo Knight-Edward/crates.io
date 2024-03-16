@@ -11,10 +11,10 @@ mkdir -p tmp
 rm -rf tmp/index-bare tmp/index-tmp
 
 echo "Initializing repository in tmp/index-bare..."
-git init -q --bare --initial-branch=master tmp/index-bare
+git init -q --bare --initial-branch=main tmp/index-bare
 
 echo "Creating temporary clone in tmp/index-tmp..."
-git init -q --initial-branch=master tmp/index-tmp
+git init -q --initial-branch=main tmp/index-tmp
 cd tmp/index-tmp
 cat > config.json <<-EOF
 {
@@ -25,7 +25,7 @@ EOF
 git add config.json
 git commit -qm 'Initial commit'
 git remote add origin file://`pwd`/../index-bare
-git push -q origin master -u > /dev/null
+git push -q origin main -u > /dev/null
 cd ../..
 
 # Remove the temporary checkout

@@ -33,6 +33,7 @@ fn main() -> anyhow::Result<()> {
     let github = RealGitHubClient::new(client);
     let github = Box::new(github);
 
+    // app is the data structure where crates.io's info is stored.
     let app = Arc::new(App::new(config, emails, github));
 
     // Start the background thread periodically logging instance metrics.
@@ -59,6 +60,8 @@ fn main() -> anyhow::Result<()> {
 
     // Block the main thread until the server has shutdown
     rt.block_on(async {
+        println!("=====================  for testing =========================");
+        info!("Server is starting!");
         // Create a `TcpListener` using tokio.
         let listener = TcpListener::bind((app.config.ip, app.config.port)).await?;
 
@@ -69,6 +72,7 @@ fn main() -> anyhow::Result<()> {
         info!("Listening at http://{addr}");
 
         // Run the server with graceful shutdown
+        // make_service has the business logic for crates.io
         axum::serve(listener, make_service)
             .with_graceful_shutdown(shutdown_signal())
             .await

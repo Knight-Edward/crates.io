@@ -121,7 +121,7 @@ impl Drop for TestDatabase {
         self.pool = None;
 
         let mut conn = TemplateDatabase::instance().get_connection();
-        drop_database(&self.name, &mut conn).expect("failed to drop test database");
+        drop_database(&self.name, &mut conn).expect("failed to drop test database"); // This failed for testing.
     }
 }
 
@@ -169,7 +169,8 @@ fn create_database_from_template(
 #[instrument(skip(conn))]
 fn drop_database(name: &str, conn: &mut PgConnection) -> QueryResult<()> {
     debug!("Dropping database…");
-    sql_query(format!("DROP DATABASE {name} WITH (FORCE)")).execute(conn)?;
+    //sql_query(format!("DROP DATABASE {name} WITH (FORCE)")).execute(conn)?;
+    sql_query(format!("DROP DATABASE {name}")).execute(conn)?;
     Ok(())
 }
 

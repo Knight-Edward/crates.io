@@ -42,8 +42,14 @@ pub trait GitHubClient: Send + Sync {
     async fn public_keys(&self, username: &str, password: &str) -> Result<Vec<GitHubPublicKey>>;
 }
 
+// maybe we need a more general concept here.
+/*
+pub struct RealGiteeClient {
+    client: Client,
+}
+*/
 #[derive(Debug)]
-pub struct RealGitHubClient {
+pub struct RealGitHubClient { 
     client: Client,
 }
 

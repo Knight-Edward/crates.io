@@ -77,7 +77,7 @@ pub struct AuthorizeQuery {
 ///     }
 /// }
 /// ```
-pub async fn authorize(
+pub async fn authorize( // this is the key function we should focus on hacking.
     query: AuthorizeQuery,
     app: AppState,
     session: SessionExtension,

@@ -38,10 +38,10 @@ pub struct App {
     pub deadpool_replica: Option<DeadpoolPool>,
 
     /// GitHub API client
-    pub github: Box<dyn GitHubClient>,
+    pub github: Box<dyn GitHubClient>, // why only github client?
 
     /// The GitHub OAuth2 configuration
-    pub github_oauth: BasicClient,
+    pub github_oauth: BasicClient, // why only github oauth?
 
     /// The server configuration
     pub config: Arc<config::Server>,
