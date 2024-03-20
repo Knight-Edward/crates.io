@@ -30,6 +30,14 @@ use crates_io_github::GithubUser;
 /// }
 /// ```
 pub async fn begin(app: AppState, session: SessionExtension) -> Json<Value> {
+    /*
+    let (url, state) = app // we need to modify here to support non-github response.
+        .gitee_oauth
+        .authorize_url(oauth2::CsrfToken::new_random)
+        .add_scope(Scope::new("read:org".to_string()))
+        .url();
+    */
+
     let (url, state) = app
         .github_oauth
         .authorize_url(oauth2::CsrfToken::new_random)
@@ -37,6 +45,7 @@ pub async fn begin(app: AppState, session: SessionExtension) -> Json<Value> {
         .url();
 
     let state = state.secret().to_string();
+    //session.insert("gitee_oauth_state".to_string(), state.clone());
     session.insert("github_oauth_state".to_string(), state.clone());
 
     Json(json!({ "url": url.to_string(), "state": state }))

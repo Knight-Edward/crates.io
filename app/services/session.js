@@ -102,6 +102,8 @@ export default class SessionService extends Service {
     }
 
     win.document.write('<html><head></head><body>Please wait while we redirect you…</body></html>');
+    win.document.write('<html><head></head><body>######## Who calls me newly add? ########\n</body></html>');
+    console.trace()
     win.document.close();
 
     // we can't call `window.open()` with this URL directly, because it might trigger

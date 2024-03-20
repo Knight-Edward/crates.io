@@ -34,7 +34,7 @@ fn main() -> anyhow::Result<()> {
     let github = Box::new(github);
 
     // app is the data structure where crates.io's info is stored.
-    let app = Arc::new(App::new(config, emails, github));
+    let app = Arc::new(App::new(config, emails, github)); // 1. start a scheduler_pool where it manages several threads, multi-thread program after this line.
 
     // Start the background thread periodically logging instance metrics.
     log_instance_metrics_thread(app.clone());

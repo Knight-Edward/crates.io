@@ -135,7 +135,8 @@ pub fn build_axum_router(state: AppState) -> Router<()> {
             "/api/v1/site_metadata",
             get(site_metadata::show_deployed_sha),
         )
-        // Session management
+        // Session management, related to github authorization stuff
+        // 'begin' returns the response json which includes {'state', 'url'}
         .route("/api/private/session/begin", get(user::session::begin))
         .route(
             "/api/private/session/authorize",

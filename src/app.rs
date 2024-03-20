@@ -43,6 +43,9 @@ pub struct App {
     /// The GitHub OAuth2 configuration
     pub github_oauth: BasicClient, // why only github oauth?
 
+    /// The GitHub OAuth2 configuration
+    pub gitee_oauth: BasicClient, // why only github oauth?
+
     /// The server configuration
     pub config: Arc<config::Server>,
 
@@ -87,6 +90,17 @@ impl App {
                 TokenUrl::new(String::from("https://github.com/login/oauth/access_token")).unwrap(),
             ),
         );
+
+        let gitee_oauth = BasicClient::new(
+            config.gh_client_id.clone(),
+            Some(config.gh_client_secret.clone()),
+            AuthUrl::new(String::from("https://gitee.com/oauth/authorize")).unwrap(),
+            Some(
+                TokenUrl::new(String::from("https://gitee.com/oauth/authorize/access_token")).unwrap(),
+            ),
+        );
+
+        println!("################## add gitee_oauth ##################");
 
         let thread_pool = Arc::new(ScheduledThreadPool::new(config.db.helper_threads));
 
@@ -193,6 +207,7 @@ impl App {
             deadpool_replica: replica_database_async,
             github,
             github_oauth,
+            gitee_oauth,
             emails,
             storage: Arc::new(Storage::from_config(&config.storage)),
             service_metrics: ServiceMetrics::new().expect("could not initialize service metrics"),

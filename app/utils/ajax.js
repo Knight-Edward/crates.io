@@ -3,12 +3,18 @@ import { runInDebug } from '@ember/debug';
 import fetch from 'fetch';
 
 export default async function ajax(input, init) {
-  let method = init?.method ?? 'GET';
 
+  let method = init?.method ?? 'GET';
+  console.log("calling app/utils/ajax.js ajax func");
+  console.trace();
   let cause;
   try {
+    console.log("fetching");
+    console.log(input);
     let response = await fetch(input, init);
+    console.log("after fetch");
     if (response.ok) {
+      console.log("response ok, return response.json()");
       return await response.json();
     }
     cause = new HttpError({ url: input, method, response });
